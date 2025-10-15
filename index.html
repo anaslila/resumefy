@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumefy - Professional Resume Builder</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/9Q0d7211/image.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="loading-logo">
+        <div class="loading-spinner"></div>
+        <p>Loading Resumefy...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="logo">
+            <h1 class="app-name">Resumefy</h1>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-btn" id="newResumeBtn"><i class="fas fa-file-plus"></i> New Resume</button>
+            <button class="nav-btn" id="myResumesBtn"><i class="fas fa-folder-open"></i> My Resumes</button>
+            <button class="nav-btn" id="themesBtn"><i class="fas fa-palette"></i> Themes</button>
+            <button class="nav-btn" id="helpBtn"><i class="fas fa-question-circle"></i> Help</button>
+        </nav>
+        <div class="header-right">
+            <button class="theme-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- Personal Details Section -->
+        <section id="personalDetailsSection" class="section active">
+            <div class="section-header">
+                <h2><i class="fas fa-user-edit"></i> Build Your Resume</h2>
+                <button class="btn-secondary" id="autoSaveToggle">
+                    <i class="fas fa-save"></i> Auto-save: <span id="autoSaveStatus">ON</span>
+                </button>
+            </div>
+
+            <div class="form-container">
+                <!-- Basic Information -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-id-card"></i> Basic Information</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="input-row">
+                            <div class="input-field">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" placeholder="John Doe" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="jobTitle">Job Title *</label>
+                                <input type="text" id="jobTitle" placeholder="Software Engineer" required>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="+1 234 567 8900">
+                            </div>
+                            <div class="input-field">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-field">
+                                <label for="linkedin">LinkedIn</label>
+                                <input type="url" id="linkedin" placeholder="linkedin.com/in/johndoe">
+                            </div>
+                            <div class="input-field">
+                                <label for="website">Website/Portfolio</label>
+                                <input type="url" id="website" placeholder="johndoe.com">
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" placeholder="City, State, Country">
+                        </div>
+                        <div class="input-field">
+                            <label for="profileSummary">Profile Summary</label>
+                            <textarea id="profileSummary" rows="4" placeholder="Brief professional summary highlighting your key skills and experience..."></textarea>
+                            <button class="btn-ai" data-target="profileSummary"><i class="fas fa-magic"></i> AI Suggest</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-tools"></i> Skills</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="skillsList"></div>
+                        <button class="btn-add" id="addSkillBtn"><i class="fas fa-plus-circle"></i> Add Skill</button>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="experienceList"></div>
+                        <button class="btn-add" id="addExperienceBtn"><i class="fas fa-plus-circle"></i> Add Experience</button>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="educationList"></div>
+                        <button class="btn-add" id="addEducationBtn"><i class="fas fa-plus-circle"></i> Add Education</button>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="projectsList"></div>
+                        <button class="btn-add" id="addProjectBtn"><i class="fas fa-plus-circle"></i> Add Project</button>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="certificationsList"></div>
+                        <button class="btn-add" id="addCertificationBtn"><i class="fas fa-plus-circle"></i> Add Certification</button>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-language"></i> Languages</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="languagesList"></div>
+                        <button class="btn-add" id="addLanguageBtn"><i class="fas fa-plus-circle"></i> Add Language</button>
+                    </div>
+                </div>
+
+                <!-- Hobbies -->
+                <div class="form-group collapsible active">
+                    <div class="collapsible-header">
+                        <h3><i class="fas fa-heart"></i> Hobbies & Interests</h3>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="hobbiesList"></div>
+                        <button class="btn-add" id="addHobbyBtn"><i class="fas fa-plus-circle"></i> Add Hobby</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary" id="previewBtn"><i class="fas fa-eye"></i> Preview Resume</button>
+                    <button class="btn-secondary" id="saveDataBtn"><i class="fas fa-download"></i> Backup Data</button>
+                    <button class="btn-secondary" id="importDataBtn"><i class="fas fa-upload"></i> Import Data</button>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Gallery Section -->
+        <section id="themeGallerySection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-palette"></i> Choose Your Theme</h2>
+                <button class="btn-secondary" id="backToFormBtn"><i class="fas fa-arrow-left"></i> Back to Form</button>
+            </div>
+
+            <div class="theme-filters">
+                <button class="filter-btn active" data-category="all">All Themes</button>
+                <button class="filter-btn" data-category="minimal">Minimal</button>
+                <button class="filter-btn" data-category="professional">Professional</button>
+                <button class="filter-btn" data-category="modern">Modern</button>
+                <button class="filter-btn" data-category="creative">Creative</button>
+                <button class="filter-btn" data-category="corporate">Corporate</button>
+            </div>
+
+            <div class="theme-gallery" id="themeGallery">
+                <!-- Themes will be dynamically generated -->
+            </div>
+
+            <div class="live-preview-container">
+                <h3>Live Preview</h3>
+                <div id="livePreviewFrame" class="preview-frame"></div>
+            </div>
+        </section>
+
+        <!-- My Resumes Section -->
+        <section id="myResumesSection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-folder-open"></i> My Saved Resumes</h2>
+                <button class="btn-secondary" id="backToFormBtn2"><i class="fas fa-arrow-left"></i> Back to Form</button>
+            </div>
+
+            <div id="savedResumesList" class="saved-resumes-list">
+                <!-- Saved resumes will appear here -->
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section id="previewSection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-eye"></i> Resume Preview</h2>
+                <button class="btn-secondary" id="backToEditBtn"><i class="fas fa-edit"></i> Edit Information</button>
+            </div>
+
+            <div class="preview-actions">
+                <button class="btn-primary" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                <button class="btn-secondary" id="printResumeBtn"><i class="fas fa-print"></i> Print Resume</button>
+                <button class="btn-secondary" id="changeThemeBtn"><i class="fas fa-palette"></i> Change Theme</button>
+                <button class="btn-secondary" id="shareResumeBtn"><i class="fas fa-share-alt"></i> Share Link</button>
+                <button class="btn-secondary" id="saveResumeBtn"><i class="fas fa-save"></i> Save Resume</button>
+            </div>
+
+            <div id="resumePreview" class="resume-preview-container">
+                <!-- Resume preview will be rendered here -->
+            </div>
+        </section>
+
+        <!-- Help Section -->
+        <section id="helpSection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-question-circle"></i> Help & Guide</h2>
+                <button class="btn-secondary" id="backToFormBtn3"><i class="fas fa-arrow-left"></i> Back to Form</button>
+            </div>
+
+            <div class="help-content">
+                <div class="help-card">
+                    <h3><i class="fas fa-rocket"></i> Getting Started</h3>
+                    <p>Fill in your personal details in the form. All data is automatically saved to your browser's local storage.</p>
+                </div>
+                <div class="help-card">
+                    <h3><i class="fas fa-palette"></i> Choosing Themes</h3>
+                    <p>Browse 50+ professional resume themes. Click any theme to see a live preview with your data.</p>
+                </div>
+                <div class="help-card">
+                    <h3><i class="fas fa-download"></i> Exporting Resume</h3>
+                    <p>Preview your resume and download it as PDF. You can also print directly from the browser.</p>
+                </div>
+                <div class="help-card">
+                    <h3><i class="fas fa-save"></i> Saving Multiple Resumes</h3>
+                    <p>Save multiple versions of your resume with different names. Access them from "My Resumes" section.</p>
+                </div>
+                <div class="help-card">
+                    <h3><i class="fas fa-database"></i> Backup & Import</h3>
+                    <p>Download your data as JSON for backup. Import it later to restore your information.</p>
+                </div>
+                <div class="help-card">
+                    <h3><i class="fas fa-magic"></i> AI Suggestions</h3>
+                    <p>Click "AI Suggest" buttons next to text areas for intelligent content suggestions (feature coming soon).</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Resumefy. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:contact@resumefy.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <!-- Modal for Save Resume -->
+    <div id="saveModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Save Resume</h3>
+            <div class="input-field">
+                <label for="resumeName">Resume Name</label>
+                <input type="text" id="resumeName" placeholder="e.g., Software Engineer Resume">
+            </div>
+            <button class="btn-primary" id="confirmSaveBtn">Save</button>
+        </div>
+    </div>
+
+    <!-- Modal for Share Link -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Share Resume</h3>
+            <p>Copy this link to share your resume:</p>
+            <div class="share-link-container">
+                <input type="text" id="shareLink" readonly>
+                <button class="btn-primary" id="copyLinkBtn"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <p class="note">Note: This is a demo link. In production, this would be a real shareable URL.</p>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
