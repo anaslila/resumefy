@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumefy - Professional Resume Builder</title>
+    <title>Resumefy - Professional Resume Builder by AL Software</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://i.postimg.cc/9Q0d7211/image.png">
@@ -21,25 +21,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="loading-logo">
-        <div class="loading-spinner"></div>
-        <p>Loading Resumefy...</p>
-    </div>
 
     <!-- Header -->
     <header class="header">
         <div class="header-left">
             <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="logo">
-            <h1 class="app-name">Resumefy</h1>
+            <div class="brand-container">
+                <h1 class="app-name">Resumefy</h1>
+                <p class="brand-tagline">by AL Software</p>
+            </div>
         </div>
         <nav class="header-nav">
             <button class="nav-btn" id="newResumeBtn"><i class="fas fa-file-plus"></i> New Resume</button>
             <button class="nav-btn" id="myResumesBtn"><i class="fas fa-folder-open"></i> My Resumes</button>
             <button class="nav-btn" id="themesBtn"><i class="fas fa-palette"></i> Themes</button>
-            <button class="nav-btn" id="helpBtn"><i class="fas fa-question-circle"></i> Help</button>
+            <button class="nav-btn" id="aboutBtn"><i class="fas fa-info-circle"></i> About</button>
         </nav>
         <div class="header-right">
             <button class="theme-toggle" id="darkModeToggle" title="Toggle Dark Mode">
@@ -47,6 +43,26 @@
             </button>
         </div>
     </header>
+
+    <!-- Features Banner -->
+    <div class="features-banner">
+        <div class="feature-badge">
+            <i class="fas fa-infinity"></i>
+            <span>LIFETIME FREE</span>
+        </div>
+        <div class="feature-badge">
+            <i class="fas fa-ban"></i>
+            <span>NO WATERMARKS</span>
+        </div>
+        <div class="feature-badge">
+            <i class="fas fa-download"></i>
+            <span>UNLIMITED DOWNLOADS</span>
+        </div>
+        <div class="feature-badge">
+            <i class="fas fa-lock-open"></i>
+            <span>NO HIDDEN FEES</span>
+        </div>
+    </div>
 
     <!-- Main Container -->
     <main class="main-container">
@@ -102,6 +118,49 @@
                             <label for="address">Address</label>
                             <input type="text" id="address" placeholder="City, State, Country">
                         </div>
+
+                        <!-- Profile Photo Upload -->
+                        <div class="input-field photo-upload-container">
+                            <label for="photoUpload">Profile Photo (Optional)</label>
+                            <div class="photo-upload-wrapper">
+                                <div class="photo-preview" id="photoPreview">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>No photo selected</span>
+                                </div>
+                                <div class="photo-upload-controls">
+                                    <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                                    <button type="button" class="btn-secondary" id="uploadPhotoBtn">
+                                        <i class="fas fa-upload"></i> Upload Photo
+                                    </button>
+                                    <button type="button" class="btn-remove" id="removePhotoBtn" style="display: none;">
+                                        <i class="fas fa-times"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="photo-note">Recommended: Professional headshot, neutral background, 2" x 2" size</p>
+                        </div>
+
+                        <!-- Company Logo Upload -->
+                        <div class="input-field photo-upload-container">
+                            <label for="companyLogoUpload">Company/Personal Brand Logo (Optional)</label>
+                            <div class="photo-upload-wrapper">
+                                <div class="photo-preview logo-preview" id="companyLogoPreview">
+                                    <i class="fas fa-building"></i>
+                                    <span>No logo selected</span>
+                                </div>
+                                <div class="photo-upload-controls">
+                                    <input type="file" id="companyLogoUpload" accept="image/*" style="display: none;">
+                                    <button type="button" class="btn-secondary" id="uploadCompanyLogoBtn">
+                                        <i class="fas fa-upload"></i> Upload Logo
+                                    </button>
+                                    <button type="button" class="btn-remove" id="removeCompanyLogoBtn" style="display: none;">
+                                        <i class="fas fa-times"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="photo-note">Add your company or personal brand logo (transparent PNG recommended)</p>
+                        </div>
+
                         <div class="input-field">
                             <label for="profileSummary">Profile Summary</label>
                             <textarea id="profileSummary" rows="4" placeholder="Brief professional summary highlighting your key skills and experience..."></textarea>
@@ -249,6 +308,11 @@
                 <button class="btn-secondary" id="backToEditBtn"><i class="fas fa-edit"></i> Edit Information</button>
             </div>
 
+            <div class="watermark-free-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>100% Watermark-Free • Lifetime Free • Unlimited Downloads</span>
+            </div>
+
             <div class="preview-actions">
                 <button class="btn-primary" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
                 <button class="btn-secondary" id="printResumeBtn"><i class="fas fa-print"></i> Print Resume</button>
@@ -262,37 +326,151 @@
             </div>
         </section>
 
-        <!-- Help Section -->
-        <section id="helpSection" class="section">
+        <!-- About Section -->
+        <section id="aboutSection" class="section">
             <div class="section-header">
-                <h2><i class="fas fa-question-circle"></i> Help & Guide</h2>
+                <h2><i class="fas fa-info-circle"></i> About Resumefy</h2>
                 <button class="btn-secondary" id="backToFormBtn3"><i class="fas fa-arrow-left"></i> Back to Form</button>
             </div>
 
-            <div class="help-content">
-                <div class="help-card">
-                    <h3><i class="fas fa-rocket"></i> Getting Started</h3>
-                    <p>Fill in your personal details in the form. All data is automatically saved to your browser's local storage.</p>
+            <div class="about-content">
+                <!-- Hero About Card -->
+                <div class="about-hero-card">
+                    <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="about-logo">
+                    <h1>Resumefy</h1>
+                    <p class="tagline">Professional Resume Builder - Lifetime Free</p>
+                    <p class="subtitle">Powered by <strong>AL Software</strong></p>
                 </div>
-                <div class="help-card">
-                    <h3><i class="fas fa-palette"></i> Choosing Themes</h3>
-                    <p>Browse 50+ professional resume themes. Click any theme to see a live preview with your data.</p>
+
+                <!-- Mission Statement -->
+                <div class="about-card highlight">
+                    <div class="about-card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>At Resumefy, we believe everyone deserves access to professional resume-building tools without barriers. We're committed to providing a completely free, watermark-free platform that empowers job seekers worldwide to create stunning resumes that get results.</p>
                 </div>
-                <div class="help-card">
-                    <h3><i class="fas fa-download"></i> Exporting Resume</h3>
-                    <p>Preview your resume and download it as PDF. You can also print directly from the browser.</p>
+
+                <!-- What Makes Us Different -->
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <h3>Lifetime Free Forever</h3>
+                        <p>No trials, no premium plans, no hidden costs. Resumefy is 100% free and will always remain free. We believe in democratizing professional resume creation for everyone.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3>No Watermarks Ever</h3>
+                        <p>Your resume is your personal document. We never add watermarks, logos, or branding to your downloaded resumes. What you create is 100% yours.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Unlimited Downloads</h3>
+                        <p>Download your resume as many times as you want in high-quality PDF format. No limits, no restrictions, no questions asked.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>50+ Professional Themes</h3>
+                        <p>Choose from over 50 beautifully designed resume templates across multiple categories - Minimal, Professional, Modern, Creative, and Corporate.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Fully Responsive</h3>
+                        <p>Create your resume on any device - desktop, tablet, or mobile. Our platform adapts seamlessly to your screen size for the best experience.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Privacy First</h3>
+                        <p>Your data stays on your device. We use browser local storage - no servers, no cloud, no tracking. Your information is completely private and secure.</p>
+                    </div>
                 </div>
-                <div class="help-card">
-                    <h3><i class="fas fa-save"></i> Saving Multiple Resumes</h3>
-                    <p>Save multiple versions of your resume with different names. Access them from "My Resumes" section.</p>
+
+                <!-- About AL Software -->
+                <div class="about-company-section">
+                    <h2><i class="fas fa-building"></i> About AL Software</h2>
+                    <div class="company-info-card">
+                        <p><strong>AL Software</strong> is a forward-thinking software development company dedicated to creating innovative, user-friendly web applications that solve real-world problems. Founded with a vision to make technology accessible to everyone, we specialize in developing clean, efficient, and professional solutions.</p>
+                        
+                        <div class="company-values">
+                            <div class="value-item">
+                                <i class="fas fa-heart"></i>
+                                <div>
+                                    <h4>User-Centric Design</h4>
+                                    <p>We build products with the user in mind, focusing on intuitive interfaces and seamless experiences.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-code"></i>
+                                <div>
+                                    <h4>Quality Code</h4>
+                                    <p>Every line of code is crafted with care, following best practices and modern web standards.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-handshake"></i>
+                                <div>
+                                    <h4>Community First</h4>
+                                    <p>We believe in giving back to the community through free, open, and accessible software solutions.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-section">
+                            <h4>Get in Touch</h4>
+                            <p>Have questions or feedback? We'd love to hear from you!</p>
+                            <div class="contact-links">
+                                <a href="mailto:contact@alsoftware.com" class="contact-link">
+                                    <i class="fas fa-envelope"></i> contact@alsoftware.com
+                                </a>
+                                <a href="#" class="contact-link">
+                                    <i class="fas fa-globe"></i> www.alsoftware.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="help-card">
-                    <h3><i class="fas fa-database"></i> Backup & Import</h3>
-                    <p>Download your data as JSON for backup. Import it later to restore your information.</p>
+
+                <!-- Features Highlight -->
+                <div class="features-highlight">
+                    <h3>✨ What You Get with Resumefy</h3>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Professional resume templates for all industries</li>
+                        <li><i class="fas fa-check-circle"></i> Live preview as you type</li>
+                        <li><i class="fas fa-check-circle"></i> Multiple resume management (save and switch between versions)</li>
+                        <li><i class="fas fa-check-circle"></i> Photo and logo upload options</li>
+                        <li><i class="fas fa-check-circle"></i> Export to high-quality PDF</li>
+                        <li><i class="fas fa-check-circle"></i> Print-ready formatting</li>
+                        <li><i class="fas fa-check-circle"></i> Dark mode support</li>
+                        <li><i class="fas fa-check-circle"></i> Auto-save functionality</li>
+                        <li><i class="fas fa-check-circle"></i> Data backup and import</li>
+                        <li><i class="fas fa-check-circle"></i> Completely ad-free experience</li>
+                    </ul>
                 </div>
-                <div class="help-card">
-                    <h3><i class="fas fa-magic"></i> AI Suggestions</h3>
-                    <p>Click "AI Suggest" buttons next to text areas for intelligent content suggestions (feature coming soon).</p>
+
+                <!-- Call to Action -->
+                <div class="about-cta">
+                    <h3>Ready to Build Your Perfect Resume?</h3>
+                    <p>Join thousands of job seekers who trust Resumefy to create professional resumes that stand out.</p>
+                    <button class="btn-primary" id="startBuildingBtn">
+                        <i class="fas fa-rocket"></i> Start Building Now
+                    </button>
                 </div>
             </div>
         </section>
@@ -301,11 +479,33 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2025 Resumefy. All rights reserved.</p>
-        <div class="social-links">
-            <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="mailto:contact@resumefy.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy" class="footer-logo">
+                <p class="footer-brand">Resumefy by <strong>AL Software</strong></p>
+                <p class="footer-tagline">Professional Resume Builder • Lifetime Free • No Watermarks</p>
+            </div>
+            <div class="footer-section">
+                <h4>Our Promise</h4>
+                <ul class="footer-list">
+                    <li><i class="fas fa-check"></i> 100% Free Forever</li>
+                    <li><i class="fas fa-check"></i> No Watermarks</li>
+                    <li><i class="fas fa-check"></i> Unlimited Downloads</li>
+                    <li><i class="fas fa-check"></i> Privacy Protected</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="mailto:contact@alsoftware.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Resumefy by AL Software. All rights reserved. Made with <i class="fas fa-heart"></i> for job seekers worldwide.</p>
         </div>
     </footer>
 
