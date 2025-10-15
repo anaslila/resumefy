@@ -1,46 +1,13 @@
 // ===================================
-// IMMEDIATE LOADING SCREEN REMOVAL
-// ===================================
-(function() {
-    'use strict';
-    
-    function removeLoadingScreen() {
-        try {
-            var loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                loadingScreen.classList.add('hidden');
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                }, 600);
-            }
-        } catch (e) {
-            console.error('Error removing loading screen:', e);
-        }
-    }
-    
-    // Multiple fallback mechanisms
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', removeLoadingScreen);
-    } else {
-        removeLoadingScreen();
-    }
-    
-    // Force remove after 800ms regardless
-    setTimeout(removeLoadingScreen, 800);
-})();
-
-// ===================================
 // GLOBAL VARIABLES & INITIALIZATION
 // ===================================
 
 var currentTheme = 'minimal';
 var autoSaveEnabled = true;
 var profilePhoto = null;
-var companyLogo = null;
 var resumeData = {
     personal: {},
     photo: null,
-    logo: null,
     skills: [],
     experience: [],
     education: [],
@@ -63,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePreview();
     } catch (e) {
         console.error('Initialization error:', e);
-        showNotification('Error loading application. Please refresh.', 'error');
     }
 });
 
@@ -73,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeApp() {
     showSection('personalDetailsSection');
-    
     addSkillField();
     addExperienceField();
     addEducationField();
@@ -88,7 +53,6 @@ function initializeApp() {
 // ===================================
 
 function setupEventListeners() {
-    // Navigation buttons
     safeAddEventListener('newResumeBtn', 'click', function() {
         if (confirm('Create a new resume? Unsaved changes will be lost.')) {
             resetForm();
@@ -109,7 +73,6 @@ function setupEventListeners() {
         showSection('aboutSection');
     });
     
-    // Back buttons
     safeAddEventListener('backToFormBtn', 'click', function() {
         showSection('personalDetailsSection');
     });
@@ -131,13 +94,9 @@ function setupEventListeners() {
         showNotification('Let\'s build your perfect resume!', 'success');
     });
     
-    // Dark mode toggle
     safeAddEventListener('darkModeToggle', 'click', toggleDarkMode);
-    
-    // Auto-save toggle
     safeAddEventListener('autoSaveToggle', 'click', toggleAutoSave);
     
-    // Photo upload
     safeAddEventListener('uploadPhotoBtn', 'click', function() {
         var input = document.getElementById('photoUpload');
         if (input) input.click();
@@ -146,16 +105,6 @@ function setupEventListeners() {
     safeAddEventListener('photoUpload', 'change', handlePhotoUpload);
     safeAddEventListener('removePhotoBtn', 'click', removePhoto);
     
-    // Company logo upload
-    safeAddEventListener('uploadCompanyLogoBtn', 'click', function() {
-        var input = document.getElementById('companyLogoUpload');
-        if (input) input.click();
-    });
-    
-    safeAddEventListener('companyLogoUpload', 'change', handleCompanyLogoUpload);
-    safeAddEventListener('removeCompanyLogoBtn', 'click', removeCompanyLogo);
-    
-    // Add buttons
     safeAddEventListener('addSkillBtn', 'click', addSkillField);
     safeAddEventListener('addExperienceBtn', 'click', addExperienceField);
     safeAddEventListener('addEducationBtn', 'click', addEducationField);
@@ -164,7 +113,6 @@ function setupEventListeners() {
     safeAddEventListener('addLanguageBtn', 'click', addLanguageField);
     safeAddEventListener('addHobbyBtn', 'click', addHobbyField);
     
-    // Action buttons
     safeAddEventListener('previewBtn', 'click', function() {
         collectFormData();
         renderResumePreview();
@@ -178,8 +126,6 @@ function setupEventListeners() {
     });
     
     safeAddEventListener('importFileInput', 'change', importBackup);
-    
-    // Preview actions
     safeAddEventListener('downloadPdfBtn', 'click', downloadPDF);
     safeAddEventListener('printResumeBtn', 'click', printResume);
     safeAddEventListener('changeThemeBtn', 'click', function() {
@@ -191,7 +137,6 @@ function setupEventListeners() {
         if (modal) modal.classList.add('active');
     });
     
-    // Modal actions
     var closeButtons = document.querySelectorAll('.close-modal');
     closeButtons.forEach(function(btn) {
         btn.addEventListener('click', closeModals);
@@ -200,7 +145,6 @@ function setupEventListeners() {
     safeAddEventListener('confirmSaveBtn', 'click', saveResume);
     safeAddEventListener('copyLinkBtn', 'click', copyShareLink);
     
-    // Collapsible sections
     var headers = document.querySelectorAll('.collapsible-header');
     headers.forEach(function(header) {
         header.addEventListener('click', function() {
@@ -208,7 +152,6 @@ function setupEventListeners() {
         });
     });
     
-    // Theme filters
     var filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -220,7 +163,6 @@ function setupEventListeners() {
         });
     });
     
-    // Form inputs auto-save
     var inputs = document.querySelectorAll('input, textarea, select');
     inputs.forEach(function(input) {
         input.addEventListener('input', debounce(function() {
@@ -231,7 +173,6 @@ function setupEventListeners() {
         }, 500));
     });
     
-    // AI Suggest buttons
     var aiButtons = document.querySelectorAll('.btn-ai');
     aiButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -241,7 +182,6 @@ function setupEventListeners() {
     });
 }
 
-// Safe event listener helper
 function safeAddEventListener(elementId, event, handler) {
     var element = document.getElementById(elementId);
     if (element) {
@@ -285,7 +225,6 @@ function toggleDarkMode() {
     }
 }
 
-// Load dark mode preference
 if (localStorage.getItem('darkMode') === 'enabled') {
     document.body.classList.add('dark-mode');
     var icon = document.querySelector('#darkModeToggle i');
@@ -309,12 +248,11 @@ function toggleAutoSave() {
 }
 
 // ===================================
-// PHOTO UPLOAD FUNCTIONALITY
+// PHOTO UPLOAD
 // ===================================
 
 function handlePhotoUpload(event) {
     var file = event.target.files[0];
-    
     if (!file) return;
     
     if (!file.type.startsWith('image/')) {
@@ -328,7 +266,6 @@ function handlePhotoUpload(event) {
     }
     
     var reader = new FileReader();
-    
     reader.onload = function(e) {
         var dataURL = e.target.result;
         profilePhoto = dataURL;
@@ -341,22 +278,12 @@ function handlePhotoUpload(event) {
         }
         
         var removeBtn = document.getElementById('removePhotoBtn');
-        if (removeBtn) {
-            removeBtn.style.display = 'inline-flex';
-        }
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
         
-        if (autoSaveEnabled) {
-            saveToLocalStorage();
-        }
-        
+        if (autoSaveEnabled) saveToLocalStorage();
         showNotification('Photo uploaded successfully!', 'success');
         updatePreview();
     };
-    
-    reader.onerror = function() {
-        showNotification('Error reading file', 'error');
-    };
-    
     reader.readAsDataURL(file);
 }
 
@@ -371,30 +298,22 @@ function removePhoto() {
     }
     
     var removeBtn = document.getElementById('removePhotoBtn');
-    if (removeBtn) {
-        removeBtn.style.display = 'none';
-    }
+    if (removeBtn) removeBtn.style.display = 'none';
     
     var input = document.getElementById('photoUpload');
-    if (input) {
-        input.value = '';
-    }
+    if (input) input.value = '';
     
-    if (autoSaveEnabled) {
-        saveToLocalStorage();
-    }
-    
+    if (autoSaveEnabled) saveToLocalStorage();
     showNotification('Photo removed', 'success');
     updatePreview();
 }
 
 // ===================================
-// COMPANY LOGO UPLOAD FUNCTIONALITY
+// COMPANY LOGO UPLOAD (PER EXPERIENCE)
 // ===================================
 
-function handleCompanyLogoUpload(event) {
+function handleCompanyLogoUpload(event, cardId) {
     var file = event.target.files[0];
-    
     if (!file) return;
     
     if (!file.type.startsWith('image/')) {
@@ -408,62 +327,54 @@ function handleCompanyLogoUpload(event) {
     }
     
     var reader = new FileReader();
-    
     reader.onload = function(e) {
         var dataURL = e.target.result;
-        companyLogo = dataURL;
-        resumeData.logo = dataURL;
-        
-        var preview = document.getElementById('companyLogoPreview');
-        if (preview) {
-            preview.innerHTML = '<img src="' + dataURL + '" alt="Company Logo">';
-            preview.classList.add('has-image');
-        }
-        
-        var removeBtn = document.getElementById('removeCompanyLogoBtn');
-        if (removeBtn) {
-            removeBtn.style.display = 'inline-flex';
+        var card = document.querySelector('[data-id="' + cardId + '"]');
+        if (card) {
+            var preview = card.querySelector('.company-logo-preview');
+            if (preview) {
+                preview.innerHTML = '<img src="' + dataURL + '" alt="Company Logo">';
+                preview.classList.add('has-image');
+            }
+            
+            var removeBtn = card.querySelector('.remove-company-logo-btn');
+            if (removeBtn) removeBtn.style.display = 'inline-flex';
+            
+            card.dataset.logo = dataURL;
         }
         
         if (autoSaveEnabled) {
+            collectFormData();
             saveToLocalStorage();
         }
-        
-        showNotification('Logo uploaded successfully!', 'success');
+        showNotification('Company logo uploaded!', 'success');
         updatePreview();
     };
-    
-    reader.onerror = function() {
-        showNotification('Error reading file', 'error');
-    };
-    
     reader.readAsDataURL(file);
 }
 
-function removeCompanyLogo() {
-    companyLogo = null;
-    resumeData.logo = null;
-    
-    var preview = document.getElementById('companyLogoPreview');
-    if (preview) {
-        preview.innerHTML = '<i class="fas fa-building"></i><span>No logo selected</span>';
-        preview.classList.remove('has-image');
-    }
-    
-    var removeBtn = document.getElementById('removeCompanyLogoBtn');
-    if (removeBtn) {
-        removeBtn.style.display = 'none';
-    }
-    
-    var input = document.getElementById('companyLogoUpload');
-    if (input) {
-        input.value = '';
+function removeCompanyLogo(cardId) {
+    var card = document.querySelector('[data-id="' + cardId + '"]');
+    if (card) {
+        var preview = card.querySelector('.company-logo-preview');
+        if (preview) {
+            preview.innerHTML = '<i class="fas fa-building"></i><span>No logo</span>';
+            preview.classList.remove('has-image');
+        }
+        
+        var removeBtn = card.querySelector('.remove-company-logo-btn');
+        if (removeBtn) removeBtn.style.display = 'none';
+        
+        var input = card.querySelector('.company-logo-upload');
+        if (input) input.value = '';
+        
+        delete card.dataset.logo;
     }
     
     if (autoSaveEnabled) {
+        collectFormData();
         saveToLocalStorage();
     }
-    
     showNotification('Logo removed', 'success');
     updatePreview();
 }
@@ -504,6 +415,28 @@ function addExperienceField() {
         '<i class="fas fa-trash"></i> Remove' +
         '</button>' +
         '</div>' +
+        
+        // Company Logo Upload
+        '<div class="input-field photo-upload-container">' +
+        '<label>Company Logo (Optional)</label>' +
+        '<div class="photo-upload-wrapper">' +
+        '<div class="company-logo-preview" data-preview-id="' + id + '">' +
+        '<i class="fas fa-building"></i>' +
+        '<span>No logo</span>' +
+        '</div>' +
+        '<div class="photo-upload-controls">' +
+        '<input type="file" class="company-logo-upload" accept="image/*" style="display: none;" data-card-id="' + id + '">' +
+        '<button type="button" class="btn-secondary upload-company-logo-btn" data-card-id="' + id + '">' +
+        '<i class="fas fa-upload"></i> Upload Logo' +
+        '</button>' +
+        '<button type="button" class="btn-remove remove-company-logo-btn" data-card-id="' + id + '" style="display: none;">' +
+        '<i class="fas fa-times"></i> Remove' +
+        '</button>' +
+        '</div>' +
+        '</div>' +
+        '<p class="photo-note">Upload company logo (PNG/JPG, max 2MB)</p>' +
+        '</div>' +
+        
         '<div class="input-row">' +
         '<div class="input-field">' +
         '<label>Company Name</label>' +
@@ -525,7 +458,34 @@ function addExperienceField() {
         '<textarea class="exp-description" rows="3" placeholder="Describe your responsibilities and achievements..."></textarea>' +
         '</div>' +
         '</div>';
+    
     container.insertAdjacentHTML('beforeend', html);
+    
+    // Add event listeners for the new logo upload buttons
+    var card = container.querySelector('[data-id="' + id + '"]');
+    if (card) {
+        var uploadBtn = card.querySelector('.upload-company-logo-btn');
+        var removeBtn = card.querySelector('.remove-company-logo-btn');
+        var fileInput = card.querySelector('.company-logo-upload');
+        
+        if (uploadBtn) {
+            uploadBtn.addEventListener('click', function() {
+                if (fileInput) fileInput.click();
+            });
+        }
+        
+        if (fileInput) {
+            fileInput.addEventListener('change', function(e) {
+                handleCompanyLogoUpload(e, id);
+            });
+        }
+        
+        if (removeBtn) {
+            removeBtn.addEventListener('click', function() {
+                removeCompanyLogo(id);
+            });
+        }
+    }
 }
 
 function addEducationField() {
@@ -715,13 +675,15 @@ function collectFormData() {
         var role = card.querySelector('.exp-role');
         var duration = card.querySelector('.exp-duration');
         var description = card.querySelector('.exp-description');
+        var logo = card.dataset.logo || null;
         
         if ((company && company.value) || (role && role.value)) {
             resumeData.experience.push({
                 company: company ? company.value : '',
                 role: role ? role.value : '',
                 duration: duration ? duration.value : '',
-                description: description ? description.value : ''
+                description: description ? description.value : '',
+                logo: logo
             });
         }
     });
@@ -815,7 +777,6 @@ function saveToLocalStorage() {
         localStorage.setItem('currentTheme', currentTheme);
     } catch (e) {
         console.error('Error saving to localStorage:', e);
-        showNotification('Error saving data', 'error');
     }
 }
 
@@ -833,7 +794,6 @@ function loadFromLocalStorage() {
         }
     } catch (e) {
         console.error('Error loading from localStorage:', e);
-        showNotification('Error loading saved data', 'error');
     }
 }
 
@@ -857,22 +817,7 @@ function populateForm() {
             preview.classList.add('has-image');
         }
         var removeBtn = document.getElementById('removePhotoBtn');
-        if (removeBtn) {
-            removeBtn.style.display = 'inline-flex';
-        }
-    }
-    
-    if (resumeData.logo) {
-        companyLogo = resumeData.logo;
-        var preview = document.getElementById('companyLogoPreview');
-        if (preview) {
-            preview.innerHTML = '<img src="' + resumeData.logo + '" alt="Company Logo">';
-            preview.classList.add('has-image');
-        }
-        var removeBtn = document.getElementById('removeCompanyLogoBtn');
-        if (removeBtn) {
-            removeBtn.style.display = 'inline-flex';
-        }
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
     }
     
     clearContainers();
@@ -897,6 +842,18 @@ function populateForm() {
                 setCardValue(card, '.exp-role', exp.role);
                 setCardValue(card, '.exp-duration', exp.duration);
                 setCardValue(card, '.exp-description', exp.description);
+                
+                // Restore company logo
+                if (exp.logo) {
+                    card.dataset.logo = exp.logo;
+                    var preview = card.querySelector('.company-logo-preview');
+                    if (preview) {
+                        preview.innerHTML = '<img src="' + exp.logo + '" alt="Company Logo">';
+                        preview.classList.add('has-image');
+                    }
+                    var removeBtn = card.querySelector('.remove-company-logo-btn');
+                    if (removeBtn) removeBtn.style.display = 'inline-flex';
+                }
             }
         });
     } else {
@@ -954,16 +911,12 @@ function clearContainers() {
 
 function setValueById(id, value) {
     var element = document.getElementById(id);
-    if (element) {
-        element.value = value || '';
-    }
+    if (element) element.value = value || '';
 }
 
 function setCardValue(card, selector, value) {
     var element = card.querySelector(selector);
-    if (element) {
-        element.value = value || '';
-    }
+    if (element) element.value = value || '';
 }
 
 function populateSection(sectionName, addFunction, fieldMappings) {
@@ -1077,17 +1030,13 @@ function generateResumeHTML() {
     var data = resumeData;
     var p = data.personal || {};
     var hasPhoto = data.photo;
-    var hasLogo = data.logo;
     
     var html = '<div class="resume-theme-minimal">';
     
-    html += '<div class="resume-header ' + (hasPhoto ? 'with-photo' : '') + ' ' + (hasLogo ? 'with-logo' : '') + '">';
+    html += '<div class="resume-header ' + (hasPhoto ? 'with-photo' : '') + '">';
     
     if (hasPhoto) {
         html += '<img src="' + data.photo + '" alt="Profile Photo" class="resume-photo">';
-    }
-    if (hasLogo) {
-        html += '<img src="' + data.logo + '" alt="Company Logo" class="resume-logo">';
     }
     
     html += '<div class="resume-header-content">';
@@ -1122,10 +1071,18 @@ function generateResumeHTML() {
         html += '<div class="resume-section">';
         html += '<h3 class="resume-section-title">Work Experience</h3>';
         data.experience.forEach(function(exp) {
-            html += '<div class="resume-item">';
+            html += '<div class="resume-item ' + (exp.logo ? 'with-logo' : '') + '">';
+            
+            if (exp.logo) {
+                html += '<img src="' + exp.logo + '" alt="Company Logo" class="resume-company-logo">';
+            }
+            
+            html += '<div class="resume-item-content">';
             html += '<h4>' + exp.role + ' - ' + exp.company + '</h4>';
             html += '<p class="resume-item-meta">' + exp.duration + '</p>';
             html += '<p>' + exp.description + '</p>';
+            html += '</div>';
+            
             html += '</div>';
         });
         html += '</div>';
@@ -1227,10 +1184,6 @@ function downloadPDF() {
     }
 }
 
-// ===================================
-// PRINT
-// ===================================
-
 function printResume() {
     window.print();
 }
@@ -1244,9 +1197,7 @@ function shareResume() {
     if (modal) {
         var link = 'https://resumefy.com/view/' + Date.now();
         var input = document.getElementById('shareLink');
-        if (input) {
-            input.value = link;
-        }
+        if (input) input.value = link;
         modal.classList.add('active');
     }
 }
@@ -1445,7 +1396,6 @@ function resetForm() {
     resumeData = {
         personal: {},
         photo: null,
-        logo: null,
         skills: [],
         experience: [],
         education: [],
@@ -1455,13 +1405,10 @@ function resetForm() {
         hobbies: []
     };
     profilePhoto = null;
-    companyLogo = null;
     
     var inputs = document.querySelectorAll('input, textarea');
     inputs.forEach(function(input) {
-        if (input.type !== 'file') {
-            input.value = '';
-        }
+        if (input.type !== 'file') input.value = '';
     });
     
     var photoPreview = document.getElementById('photoPreview');
@@ -1471,14 +1418,6 @@ function resetForm() {
     }
     var photoBtn = document.getElementById('removePhotoBtn');
     if (photoBtn) photoBtn.style.display = 'none';
-    
-    var logoPreview = document.getElementById('companyLogoPreview');
-    if (logoPreview) {
-        logoPreview.innerHTML = '<i class="fas fa-building"></i><span>No logo selected</span>';
-        logoPreview.classList.remove('has-image');
-    }
-    var logoBtn = document.getElementById('removeCompanyLogoBtn');
-    if (logoBtn) logoBtn.style.display = 'none';
     
     populateForm();
     saveToLocalStorage();
@@ -1497,10 +1436,6 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
-// ===================================
-// MODAL CLICK OUTSIDE TO CLOSE
-// ===================================
 
 window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {

@@ -21,7 +21,6 @@
     --error-color: #dc3545;
 }
 
-/* Dark Mode Variables */
 body.dark-mode {
     --text-color: #e0e0e0;
     --text-light: #b0b0b0;
@@ -45,67 +44,6 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: var(--transition);
-}
-
-/* ===================================
-   LOADING SCREEN
-   =================================== */
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #2B65EC 0%, #667eea 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loading-logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-    animation: pulse 2s infinite;
-}
-
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-.loading-screen p {
-    color: white;
-    font-size: 18px;
-    margin-top: 20px;
-    font-weight: 500;
-}
-
-.loading-tagline {
-    font-size: 14px !important;
-    opacity: 0.9;
-    margin-top: 5px !important;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
 }
 
 /* ===================================
@@ -345,7 +283,7 @@ body {
 }
 
 .collapsible.active .collapsible-content {
-    max-height: 5000px;
+    max-height: 10000px;
     padding: 25px;
 }
 
@@ -482,7 +420,7 @@ body {
 }
 
 /* ===================================
-   DYNAMIC SECTIONS (Skills, Experience, etc.)
+   DYNAMIC SECTIONS
    =================================== */
 .item-card {
     background-color: var(--bg-color);
@@ -511,7 +449,7 @@ body {
 }
 
 /* ===================================
-   PHOTO & LOGO UPLOAD SECTION
+   PHOTO & COMPANY LOGO UPLOAD
    =================================== */
 .photo-upload-container {
     margin: 20px 0;
@@ -525,9 +463,9 @@ body {
 }
 
 .photo-preview,
-.logo-preview {
-    width: 150px;
-    height: 150px;
+.company-logo-preview {
+    width: 120px;
+    height: 120px;
     border: 3px dashed var(--border-color);
     border-radius: var(--border-radius);
     display: flex;
@@ -540,45 +478,47 @@ body {
     transition: var(--transition);
 }
 
-.logo-preview {
-    background-color: #f0f0f0;
+.company-logo-preview {
+    width: 100px;
+    height: 100px;
+    background-color: #f8f8f8;
 }
 
 .photo-preview:hover,
-.logo-preview:hover {
+.company-logo-preview:hover {
     border-color: var(--primary-color);
 }
 
 .photo-preview i,
-.logo-preview i {
-    font-size: 60px;
+.company-logo-preview i {
+    font-size: 40px;
     color: var(--text-light);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .photo-preview span,
-.logo-preview span {
-    font-size: 13px;
+.company-logo-preview span {
+    font-size: 11px;
     color: var(--text-light);
     text-align: center;
     padding: 0 10px;
 }
 
 .photo-preview img,
-.logo-preview img {
+.company-logo-preview img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
 
-.logo-preview img {
+.company-logo-preview img {
     object-fit: contain;
     padding: 10px;
 }
 
 .photo-preview.has-image,
-.logo-preview.has-image {
+.company-logo-preview.has-image {
     border-style: solid;
     border-color: var(--primary-color);
 }
@@ -738,7 +678,7 @@ body {
     min-height: 1100px;
 }
 
-/* Resume Themes Styles */
+/* Resume Theme Styles */
 .resume-theme-minimal {
     font-family: var(--font-primary);
     color: #333;
@@ -757,19 +697,6 @@ body {
     gap: 20px;
     align-items: center;
     text-align: left;
-}
-
-.resume-header.with-logo {
-    position: relative;
-}
-
-.resume-logo {
-    position: absolute;
-    top: 0;
-    right: 0;
-    max-width: 80px;
-    max-height: 80px;
-    object-fit: contain;
 }
 
 .resume-header-content {
@@ -820,6 +747,29 @@ body {
 
 .resume-item {
     margin-bottom: 20px;
+    position: relative;
+    padding-left: 0;
+}
+
+.resume-item.with-logo {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 15px;
+    align-items: start;
+}
+
+.resume-company-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.resume-item-content {
+    flex: 1;
 }
 
 .resume-item h4 {
@@ -1095,40 +1045,6 @@ body {
 .contact-link:hover {
     color: var(--primary-dark);
     transform: translateX(5px);
-}
-
-.features-highlight {
-    background-color: var(--card-bg);
-    padding: 40px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    margin-bottom: 40px;
-}
-
-.features-highlight h3 {
-    font-size: 28px;
-    color: var(--primary-color);
-    margin-bottom: 25px;
-}
-
-.features-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-}
-
-.features-list li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    color: var(--text-color);
-}
-
-.features-list i {
-    color: var(--success-color);
-    font-size: 18px;
 }
 
 .about-cta {
@@ -1484,8 +1400,12 @@ body {
         margin: 0 auto 15px;
     }
 
-    .features-list {
+    .resume-item.with-logo {
         grid-template-columns: 1fr;
+    }
+
+    .resume-company-logo {
+        margin: 0 auto 10px;
     }
 
     .company-info-card {
@@ -1508,9 +1428,6 @@ body {
     }
 }
 
-/* ===================================
-   SCROLLBAR STYLING
-   =================================== */
 ::-webkit-scrollbar {
     width: 10px;
 }

@@ -97,7 +97,7 @@
                         <div class="input-row">
                             <div class="input-field">
                                 <label for="phone">Phone</label>
-                                <input type="tel" id="phone" placeholder="+1 234 567 8900">
+                                <input type="tel" id="phone" placeholder="+91 98765 43210">
                             </div>
                             <div class="input-field">
                                 <label for="email">Email *</label>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="input-field">
                             <label for="address">Address</label>
-                            <input type="text" id="address" placeholder="City, State, Country">
+                            <input type="text" id="address" placeholder="Mumbai, Maharashtra, India">
                         </div>
 
                         <!-- Profile Photo Upload -->
@@ -137,28 +137,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p class="photo-note">Recommended: Professional headshot, neutral background, 2" x 2" size</p>
-                        </div>
-
-                        <!-- Company Logo Upload -->
-                        <div class="input-field photo-upload-container">
-                            <label for="companyLogoUpload">Company/Personal Brand Logo (Optional)</label>
-                            <div class="photo-upload-wrapper">
-                                <div class="photo-preview logo-preview" id="companyLogoPreview">
-                                    <i class="fas fa-building"></i>
-                                    <span>No logo selected</span>
-                                </div>
-                                <div class="photo-upload-controls">
-                                    <input type="file" id="companyLogoUpload" accept="image/*" style="display: none;">
-                                    <button type="button" class="btn-secondary" id="uploadCompanyLogoBtn">
-                                        <i class="fas fa-upload"></i> Upload Logo
-                                    </button>
-                                    <button type="button" class="btn-remove" id="removeCompanyLogoBtn" style="display: none;">
-                                        <i class="fas fa-times"></i> Remove
-                                    </button>
-                                </div>
-                            </div>
-                            <p class="photo-note">Add your company or personal brand logo (transparent PNG recommended)</p>
+                            <p class="photo-note">Recommended: Professional headshot, neutral background</p>
                         </div>
 
                         <div class="input-field">
@@ -279,9 +258,7 @@
                 <button class="filter-btn" data-category="corporate">Corporate</button>
             </div>
 
-            <div class="theme-gallery" id="themeGallery">
-                <!-- Themes will be dynamically generated -->
-            </div>
+            <div class="theme-gallery" id="themeGallery"></div>
 
             <div class="live-preview-container">
                 <h3>Live Preview</h3>
@@ -295,10 +272,7 @@
                 <h2><i class="fas fa-folder-open"></i> My Saved Resumes</h2>
                 <button class="btn-secondary" id="backToFormBtn2"><i class="fas fa-arrow-left"></i> Back to Form</button>
             </div>
-
-            <div id="savedResumesList" class="saved-resumes-list">
-                <!-- Saved resumes will appear here -->
-            </div>
+            <div id="savedResumesList" class="saved-resumes-list"></div>
         </section>
 
         <!-- Preview Section -->
@@ -321,9 +295,7 @@
                 <button class="btn-secondary" id="saveResumeBtn"><i class="fas fa-save"></i> Save Resume</button>
             </div>
 
-            <div id="resumePreview" class="resume-preview-container">
-                <!-- Resume preview will be rendered here -->
-            </div>
+            <div id="resumePreview" class="resume-preview-container"></div>
         </section>
 
         <!-- About Section -->
@@ -334,7 +306,6 @@
             </div>
 
             <div class="about-content">
-                <!-- Hero About Card -->
                 <div class="about-hero-card">
                     <img src="https://i.postimg.cc/9Q0d7211/image.png" alt="Resumefy Logo" class="about-logo">
                     <h1>Resumefy</h1>
@@ -342,7 +313,6 @@
                     <p class="subtitle">Powered by <strong>AL Software</strong></p>
                 </div>
 
-                <!-- Mission Statement -->
                 <div class="about-card highlight">
                     <div class="about-card-icon">
                         <i class="fas fa-bullseye"></i>
@@ -351,14 +321,13 @@
                     <p>At Resumefy, we believe everyone deserves access to professional resume-building tools without barriers. We're committed to providing a completely free, watermark-free platform that empowers job seekers worldwide to create stunning resumes that get results.</p>
                 </div>
 
-                <!-- What Makes Us Different -->
                 <div class="about-grid">
                     <div class="about-card">
                         <div class="about-card-icon">
                             <i class="fas fa-infinity"></i>
                         </div>
                         <h3>Lifetime Free Forever</h3>
-                        <p>No trials, no premium plans, no hidden costs. Resumefy is 100% free and will always remain free. We believe in democratizing professional resume creation for everyone.</p>
+                        <p>No trials, no premium plans, no hidden costs. Resumefy is 100% free and will always remain free.</p>
                     </div>
 
                     <div class="about-card">
@@ -366,7 +335,7 @@
                             <i class="fas fa-ban"></i>
                         </div>
                         <h3>No Watermarks Ever</h3>
-                        <p>Your resume is your personal document. We never add watermarks, logos, or branding to your downloaded resumes. What you create is 100% yours.</p>
+                        <p>Your resume is your personal document. We never add watermarks, logos, or branding to your downloaded resumes.</p>
                     </div>
 
                     <div class="about-card">
@@ -374,7 +343,7 @@
                             <i class="fas fa-download"></i>
                         </div>
                         <h3>Unlimited Downloads</h3>
-                        <p>Download your resume as many times as you want in high-quality PDF format. No limits, no restrictions, no questions asked.</p>
+                        <p>Download your resume as many times as you want in high-quality PDF format. No limits, no restrictions.</p>
                     </div>
 
                     <div class="about-card">
@@ -382,7 +351,7 @@
                             <i class="fas fa-palette"></i>
                         </div>
                         <h3>50+ Professional Themes</h3>
-                        <p>Choose from over 50 beautifully designed resume templates across multiple categories - Minimal, Professional, Modern, Creative, and Corporate.</p>
+                        <p>Choose from over 50 beautifully designed resume templates across multiple categories.</p>
                     </div>
 
                     <div class="about-card">
@@ -390,7 +359,7 @@
                             <i class="fas fa-mobile-alt"></i>
                         </div>
                         <h3>Fully Responsive</h3>
-                        <p>Create your resume on any device - desktop, tablet, or mobile. Our platform adapts seamlessly to your screen size for the best experience.</p>
+                        <p>Create your resume on any device - desktop, tablet, or mobile.</p>
                     </div>
 
                     <div class="about-card">
@@ -398,36 +367,35 @@
                             <i class="fas fa-lock"></i>
                         </div>
                         <h3>Privacy First</h3>
-                        <p>Your data stays on your device. We use browser local storage - no servers, no cloud, no tracking. Your information is completely private and secure.</p>
+                        <p>Your data stays on your device. No servers, no cloud, no tracking.</p>
                     </div>
                 </div>
 
-                <!-- About AL Software -->
                 <div class="about-company-section">
                     <h2><i class="fas fa-building"></i> About AL Software</h2>
                     <div class="company-info-card">
-                        <p><strong>AL Software</strong> is a forward-thinking software development company dedicated to creating innovative, user-friendly web applications that solve real-world problems. Founded with a vision to make technology accessible to everyone, we specialize in developing clean, efficient, and professional solutions.</p>
+                        <p><strong>AL Software</strong> is a forward-thinking software development company dedicated to creating innovative, user-friendly web applications that solve real-world problems.</p>
                         
                         <div class="company-values">
                             <div class="value-item">
                                 <i class="fas fa-heart"></i>
                                 <div>
                                     <h4>User-Centric Design</h4>
-                                    <p>We build products with the user in mind, focusing on intuitive interfaces and seamless experiences.</p>
+                                    <p>We build products with the user in mind, focusing on intuitive interfaces.</p>
                                 </div>
                             </div>
                             <div class="value-item">
                                 <i class="fas fa-code"></i>
                                 <div>
                                     <h4>Quality Code</h4>
-                                    <p>Every line of code is crafted with care, following best practices and modern web standards.</p>
+                                    <p>Every line of code is crafted with care, following best practices.</p>
                                 </div>
                             </div>
                             <div class="value-item">
                                 <i class="fas fa-handshake"></i>
                                 <div>
                                     <h4>Community First</h4>
-                                    <p>We believe in giving back to the community through free, open, and accessible software solutions.</p>
+                                    <p>We believe in giving back through free, accessible software solutions.</p>
                                 </div>
                             </div>
                         </div>
@@ -447,24 +415,6 @@
                     </div>
                 </div>
 
-                <!-- Features Highlight -->
-                <div class="features-highlight">
-                    <h3>✨ What You Get with Resumefy</h3>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> Professional resume templates for all industries</li>
-                        <li><i class="fas fa-check-circle"></i> Live preview as you type</li>
-                        <li><i class="fas fa-check-circle"></i> Multiple resume management (save and switch between versions)</li>
-                        <li><i class="fas fa-check-circle"></i> Photo and logo upload options</li>
-                        <li><i class="fas fa-check-circle"></i> Export to high-quality PDF</li>
-                        <li><i class="fas fa-check-circle"></i> Print-ready formatting</li>
-                        <li><i class="fas fa-check-circle"></i> Dark mode support</li>
-                        <li><i class="fas fa-check-circle"></i> Auto-save functionality</li>
-                        <li><i class="fas fa-check-circle"></i> Data backup and import</li>
-                        <li><i class="fas fa-check-circle"></i> Completely ad-free experience</li>
-                    </ul>
-                </div>
-
-                <!-- Call to Action -->
                 <div class="about-cta">
                     <h3>Ready to Build Your Perfect Resume?</h3>
                     <p>Join thousands of job seekers who trust Resumefy to create professional resumes that stand out.</p>
@@ -509,7 +459,7 @@
         </div>
     </footer>
 
-    <!-- Modal for Save Resume -->
+    <!-- Modals -->
     <div id="saveModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -522,7 +472,6 @@
         </div>
     </div>
 
-    <!-- Modal for Share Link -->
     <div id="shareModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -536,10 +485,8 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
     <div id="notificationToast" class="notification-toast"></div>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
